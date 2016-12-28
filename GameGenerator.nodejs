@@ -1,0 +1,7 @@
+var uuid = require('node-uuid');
+var fs = require('fs');
+
+var hiddenChests = parseInt(process.argv[2]);
+for (var i = 0; i < hiddenChests; i++) {
+    console.log(uuid.v4().replace(/\-/g, "") + "," + i);
+}

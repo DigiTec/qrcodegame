@@ -1,0 +1,17 @@
+var fs = require('fs');
+var request = require('request');
+
+var chests = fs.readFileSync('hidden-chests.csv').toString().split('\n');
+chests.filter(function (line) {
+    return line !== undefined && line !== "";
+}).map(function (line) {
+    return line.split(',');
+}).forEach(function (chest) {
+    var fileName = chest[0] + '.qrcode.png';
+    fs.stat(fileName, function (err, stats) {
+        if (err || stats.size === 0) {
+            console.log("Requesting " + fileName);
+            request('https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=http://www.make.toys/hiddentoychestgame2016/' + chest[0] + '.html').pipe(fs.createWriteStream(fileName));
+        }
+    });
+});

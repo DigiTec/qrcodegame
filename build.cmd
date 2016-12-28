@@ -1,0 +1,1 @@
+csc /t:exe /out:MakeMasters.exe MakeMasters.cs
